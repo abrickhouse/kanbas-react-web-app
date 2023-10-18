@@ -1,0 +1,130 @@
+.form-control-m {
+ /* display: block; */
+ /* width: 100%; */
+ width: 30%;
+ padding: 0.5rem 0.75rem;
+ font-size: 1rem;
+ font-weight: 400;
+ line-height: 1.5;
+ color: #212529;
+ background-color: #fff;
+ background-clip: padding-box;
+ border: 1px solid #ced4da;
+ -webkit-appearance: none;
+ -moz-appearance: none;
+ appearance: none;
+ border-radius: 0.25rem;
+ transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.pill {
+ border-radius: 20px;
+ padding: 1px 20px;
+ margin-right: 10px;
+ height: 35px;
+ font-size: small;
+}
+
+.wd-bg-color-black {
+ background-color: #121212;
+ height: auto;
+}
+
+.nav-link {
+ color: white;
+ text-decoration: none;
+ font-size: small;
+ padding: 5px;
+}
+
+.text-red {
+ color: #cf0505;
+ display: block;
+ font-size: small;
+ padding: 0.5rem 1rem;
+ text-decoration: none;
+ transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+  border-color 0.15s ease-in-out;
+}
+
+.text-black {
+ color: black;
+ border-left: 2px solid black;
+ padding-left: 5px;
+ text-decoration: none;
+}
+
+.text-green {
+ color: green;
+ text-decoration: none;
+}
+
+.text-black-assign {
+ color: black;
+ text-decoration: none;
+}
+.text-black-assign:hover {
+ color: black;
+ text-decoration: underline;
+}
+
+.text-black:hover {
+ color: black;
+ border-left: 2px solid black;
+ padding-left: 5px;
+ text-decoration: underline;
+}
+
+.wd-grid-col-left-sidebar-1 {
+ width: 90px;
+ padding-right: 0px;
+}
+
+.tab {
+ color: #cf0505;
+ text-decoration: none;
+ padding-left: 6px;
+}
+
+.tab:hover {
+ color: #cf0505;
+ text-decoration: underline;
+ padding-left: 6px;
+}
+
+.tab-2 {
+ color: #cf0505;
+ text-decoration: none;
+}
+
+.tab-2:hover {
+ color: #cf0505;
+ text-decoration: underline;
+}
+
+.indent {
+ padding-left: 20px;
+}
+.lg-1 {
+ margin-top: 20px;
+}
+ul.side-nav .list-group-item {
+ position: relative;
+ display: block;
+ padding: 0.25rem 25px;
+ color: #212529;
+ text-decoration: none;
+ background-color: #fff;
+ border: none;
+}
+.off {
+ position: fixed;
+ left: 75px;
+ top: 70px;
+}
+
+.offset-md-1- {
+ margin-left: 13%;
+}
+.wd-zindex-bring-to-front {
+ z-index: 10;
+}
