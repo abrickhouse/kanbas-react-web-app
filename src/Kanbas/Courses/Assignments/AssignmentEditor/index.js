@@ -2,17 +2,26 @@ import React from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import db from "../../../Database";
 import "./edit.css";
+import { useSelector, useDispatch } from "react-redux";
+import {
+ addAssignment,
+ deleteAssignment,
+ selectAssignment,
+ updateAssignment,
+} from "../assignmentsReducer";
 
 function AssignmentEditor() {
  const { assignmentId } = useParams();
- const assignment = db.assignments.find(
-  (assignment) => assignment._id === assignmentId
+ const assignments = useSelector(
+  (state) => state.assignmentsReducer.assignments
  );
+ const assignment = useSelector((state) => state.assignmentsReducer.assignment);
+ const dispatch = useDispatch();
 
  const { courseId } = useParams();
  const navigate = useNavigate();
  const handleSave = () => {
-  console.log("Actually saving assignment TBD in later assignments");
+  dispatch(updateAssignment(assignment));
   navigate(`/Kanbas/Courses/${courseId}/Assignments`);
  };
  return (
@@ -26,11 +35,22 @@ function AssignmentEditor() {
     {assignmentId}
    </p>
    <h2>Assignment Name</h2>
-   <input value={assignment.title} className="form-control mb-2" />
+   <input
+    value={assignment.title}
+    onChange={(e) =>
+     dispatch(selectAssignment({ ...assignment, title: e.target.value }))
+    }
+    className="form-control mb-2"
+   />
 
    <div class="form-group row pb-3 mx-1">
-    <textarea class="form-control">
-     This is the assignment description.
+    <textarea
+     class="form-control"
+     onChange={(e) =>
+      dispatch(selectAssignment({ ...assignment, description: e.target.value }))
+     }
+    >
+     {assignment.description}
     </textarea>
    </div>
    <div class="form-group row pb-3">
@@ -259,7 +279,10 @@ function AssignmentEditor() {
         class="form-control"
         type="date"
         id="text-fields-due"
-        value="2023-01-01"
+        value={assignment.dueDate}
+        onChange={(e) =>
+         dispatch(selectAssignment({ ...assignment, dueDate: e.target.value }))
+        }
        />
       </div>
      </div>
@@ -273,7 +296,12 @@ function AssignmentEditor() {
         class="form-control"
         type="date"
         id="text-fields-from"
-        value="2023-01-01"
+        value={assignment.availableFromDate}
+        onChange={(e) =>
+         dispatch(
+          selectAssignment({ ...assignment, availableFromDate: e.target.value })
+         )
+        }
        />
       </div>
       <div class="col-md-6 mb-3">
@@ -284,7 +312,15 @@ function AssignmentEditor() {
         class="form-control"
         type="date"
         id="text-fields-until"
-        value="2023-01-01"
+        value={assignment.availableUntilDate}
+        onChange={(e) =>
+         dispatch(
+          selectAssignment({
+           ...assignment,
+           availableUntilDate: e.target.value,
+          })
+         )
+        }
        />
       </div>
      </div>
@@ -305,7 +341,11 @@ function AssignmentEditor() {
      </label>{" "}
      <br />
     </div>
-    <button class="btn btn-danger float-end" type="button" onClick={handleSave}>
+    <button
+     class="btn btn-danger float-end"
+     type="button"
+     onClick={() => handleSave()}
+    >
      Save
     </button>
     <button

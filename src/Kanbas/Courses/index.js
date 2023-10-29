@@ -10,11 +10,11 @@ import Grades from "./Grades";
 import "./index.css";
 import "../../vendors/fontawesome-free-5.15.4-web/css/all.css";
 
-function Courses() {
+function Courses({ courses }) {
  const { courseId } = useParams();
  const { path } = useLocation();
  console.log(courseId);
- const course = db.courses.find((course) => course._id === courseId);
+ const course = courses.find((course) => course._id === courseId);
  return (
   <div className="wd-flex-row-container col-12">
    <nav class="breadcrumb" aria-label="breadcrumb">
