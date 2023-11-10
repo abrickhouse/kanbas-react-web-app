@@ -3,37 +3,68 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Dashboard from "./Dashboard";
 import Courses from "./Courses";
 import db from "./Database";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import * as service from "./service";
 import store from "./store";
 import { Provider } from "react-redux";
+import axios from "axios";
 
 function Kanbas() {
- const [courses, setCourses] = useState(db.courses);
+ const [courses, setCourses] = useState([]);
  const [course, setCourse] = useState({
   name: "New Course",
   number: "New Number",
   startDate: "2023-09-10",
   endDate: "2023-12-15",
  });
+ const URL = "http://localhost:4008/api/courses";
 
- const addNewCourse = () => {
-  setCourses([...courses, { ...course, _id: new Date().getTime().toString() }]);
+ const findAllCourses = async () => {
+  const response = await axios.get(URL);
+  setCourses(response.data);
+ };
+ useEffect(() => {
+  findAllCourses();
+ }, []);
+ //BAD REQUEST
+ const addCourse = async (course) => {
+  console.log(course);
+  try {
+   const newCourse = await axios.post(URL, course);
+   setCourses([newCourse, ...courses]);
+   setCourse({ name: "" });
+  } catch (error) {
+   console.log(error);
+  }
+ };
+ // BAD REQUEST
+ const deleteCourse = async (course) => {
+  try {
+   await axios.delete(`${URL}/${course._id}`);
+   setCourses(courses.filter((c) => c._id !== course._id));
+  } catch (error) {
+   console.log(error);
+  }
  };
 
- const deleteCourse = (courseId) => {
-  setCourses(courses.filter((course) => course._id !== courseId));
- };
- const updateCourse = () => {
-  setCourses(
-   courses.map((c) => {
-    if (c._id === course._id) {
-     return course;
-    } else {
+ // CIRCULAR STRUCTURE
+ const updateCourse = async (course) => {
+  try {
+   await axios.put(`${URL}/${course._id}`, course);
+   setCourses(
+    courses.map((c) => {
+     if (c._id === course._id) {
+      return course;
+     }
      return c;
-    }
-   })
-  );
+    })
+   );
+   setCourse({ name: "" });
+  } catch (error) {
+   console.log(error);
+  }
  };
+
  return (
   <Provider store={store}>
    <div className="wd-flex-row-container grid row">
@@ -49,7 +80,7 @@ function Kanbas() {
          courses={courses}
          course={course}
          setCourse={setCourse}
-         addNewCourse={addNewCourse}
+         addNewCourse={addCourse}
          deleteCourse={deleteCourse}
          updateCourse={updateCourse}
         />

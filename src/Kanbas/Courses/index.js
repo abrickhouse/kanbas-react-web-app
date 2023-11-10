@@ -9,12 +9,25 @@ import AssignmentEditor from "./Assignments/AssignmentEditor";
 import Grades from "./Grades";
 import "./index.css";
 import "../../vendors/fontawesome-free-5.15.4-web/css/all.css";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
-function Courses({ courses }) {
+function Courses() {
+ const URL = "http://localhost:4008/api/courses";
  const { courseId } = useParams();
+ const [course, setCourse] = useState({});
+ const findCourseById = async (courseI) => {
+  const response = await axios.get(`${URL}/${courseI}`);
+  setCourse(response.data);
+ };
+
  const { path } = useLocation();
  console.log(courseId);
- const course = courses.find((course) => course._id === courseId);
+ // const course = courses.find((course) => course._id === courseId);
+ useEffect(() => {
+  findCourseById(courseId);
+ }, [courseId]);
+
  return (
   <div className="wd-flex-row-container col-12">
    <nav class="breadcrumb" aria-label="breadcrumb">
