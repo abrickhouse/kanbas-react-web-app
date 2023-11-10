@@ -13,6 +13,7 @@ import * as client from "./client";
 
 function ModuleList() {
  const { courseId } = useParams();
+
  useEffect(() => {
   client
    .findModulesForCourse(courseId)
