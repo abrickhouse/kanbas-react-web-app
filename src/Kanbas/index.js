@@ -7,7 +7,11 @@ import { useState, useEffect } from "react";
 import * as service from "./service";
 import store from "./store";
 import { Provider } from "react-redux";
+import Signin from "../users/signin";
+import Account from "../users/account";
+import UserTable from "../users/table";
 import axios from "axios";
+import Signup from "../users/signup";
 
 function Kanbas() {
  const [courses, setCourses] = useState([]);
@@ -27,7 +31,7 @@ function Kanbas() {
  useEffect(() => {
   findAllCourses();
  }, []);
- //BAD REQUEST
+
  const addCourse = async (course) => {
   console.log(course);
   try {
@@ -38,7 +42,7 @@ function Kanbas() {
    console.log(error);
   }
  };
- // BAD REQUEST
+
  const deleteCourse = async (course) => {
   try {
    await axios.delete(`${URL}/${course._id}`);
@@ -48,7 +52,6 @@ function Kanbas() {
   }
  };
 
- // CIRCULAR STRUCTURE
  const updateCourse = async (course) => {
   try {
    await axios.put(`${URL}/${course._id}`, course);
@@ -72,8 +75,9 @@ function Kanbas() {
     <KanbasNavigation />
     <div className="col-xl-11 col-lg-10 col-md-10 col-sm-10 col-xs-4">
      <Routes>
+      <Route path="/account/users" element={<UserTable />} />
       <Route path="/" element={<Navigate to="Dashboard" />} />
-      <Route path="Account" element={<h1>Account</h1>} />
+
       <Route
        path="Dashboard"
        element={
@@ -91,6 +95,10 @@ function Kanbas() {
        path="Courses/:courseId/*"
        element={<Courses courses={courses} />}
       />
+      <Route path="/signin" element={<Signin />} />
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/account" element={<Account />} />
+      <Route path="/account:id" element={<Account />} />
      </Routes>
     </div>
    </div>
