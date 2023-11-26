@@ -1,6 +1,7 @@
 import * as client from "./client";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import UseNav from "./usenav";
 function Signin() {
  const [credentials, setCredentials] = useState({ username: "", password: "" });
  const navigate = useNavigate();
@@ -11,6 +12,7 @@ function Signin() {
  return (
   <div>
    <h1>Signin</h1>
+
    <input
     value={credentials.username}
     className="form-control"
@@ -29,6 +31,7 @@ function Signin() {
     {" "}
     Sign In{" "}
    </button>
+   <UseNav />
   </div>
  );
 }

@@ -2,6 +2,7 @@ import * as client from "./client";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import UseNav from "./usenav";
 function Account() {
  const { id } = useParams();
  const [account, setAccount] = useState(null);
@@ -80,6 +81,7 @@ function Account() {
      </Link>
     </div>
    )}
+   <UseNav />
   </div>
  );
 }
